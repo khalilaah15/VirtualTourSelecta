@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/logo.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Virtual Tour Selecta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #4CAF50;
+      --primary-light: #81C784;
+      --primary-dark: #388E3C;
+      --secondary-color: #03A9F4;
+      --secondary-light: #4FC3F7;
+      --secondary-dark: #0288D1;
+      --text-dark: #212121;
+      --text-light: #757575;
+      --text-white: #FFFFFF;
+      --background-light: #F5F5F5;
+      --background-dark: #263238;
+      
+      --heading-font: 'Poppins', sans-serif;
+      --body-font: 'Roboto', sans-serif;
+      
+      --spacing-xs: 4px;
+      --spacing-sm: 8px;
+      --spacing-md: 16px;
+      --spacing-lg: 24px;
+      --spacing-xl: 32px;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: var(--body-font);
+      line-height: 1.6;
+      color: var(--text-dark);
+      background-color: var(--background-light);
+    }
+    
+    h1, h2, h3 {
+      font-family: var(--heading-font);
+      line-height: 1.3;
+    }
+    
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      padding: var(--spacing-md) 0;
+    }
+    
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--spacing-md);
+    }
+    
+    .navbar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-family: var(--heading-font);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      text-decoration: none;
+    }
+    
+    .logo span {
+      color: var(--primary-color);
+    }
+    
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--spacing-sm) var(--spacing-md);
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .back-btn:hover {
+      background-color: var(--primary-dark);
+    }
+    
+    .back-btn span {
+      margin-right: 8px;
+    }
+    
+    .tour-container {
+      margin-top: 80px;
+      padding: var(--spacing-xl) 0;
+    }
+    
+    .tour-header {
+      text-align: center;
+      margin-bottom: var(--spacing-xl);
+    }
+    
+    .tour-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: var(--spacing-sm);
+      color: var(--primary-color);
+    }
+    
+    .tour-header p {
+      color: var(--text-light);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .panorama-container {
+      width: 100%;
+      height: 70vh;
+      margin-bottom: var(--spacing-lg);
+      background-color: #000;
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .panorama-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .placeholder-text {
+      color: white;
+      font-size: 1.5rem;
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-xl);
+    }
+    
+    .control-btn {
+      padding: var(--spacing-sm) var(--spacing-md);
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .control-btn:hover {
+      background-color: var(--primary-light);
+      color: white;
+    }
+    
+    .viewpoint-nav {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-md);
+      margin-top: var(--spacing-lg);
+    }
+    
+    .viewpoint-btn {
+      padding: var(--spacing-sm);
+      background-color: var(--secondary-light);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .viewpoint-btn.active {
+      background-color: var(--secondary-dark);
+    }
+    
+    .tour-info {
+      margin-top: var(--spacing-xl);
+      padding: var(--spacing-lg);
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .tour-info h2 {
+      color: var(--primary-color);
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--spacing-lg);
+    }
+    
+    .info-item {
+      padding: var(--spacing-md);
+      background-color: var(--background-light);
+      border-radius: 8px;
+    }
+    
+    .info-item h3 {
+      margin-bottom: var(--spacing-sm);
+      color: var(--secondary-color);
+    }
+    
+    @media (max-width: 768px) {
+      .panorama-container {
+        height: 50vh;
+      }
+      
+      .tour-header h1 {
+        font-size: 2rem;
+      }
+      
+      .controls {
+        flex-wrap: wrap;
+      }
+    }
+    .safety-tips {
+  background: #c7edc9;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  max-width: 1200px;
+  margin: 2rem auto;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.safety-tips h1 {
+  text-align: center;
+  color: #388E3C;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+  font-size: 1.8rem;
+}
+
+.safety-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.safety-list li {
+  background: white;
+  margin: 0.5rem 0;
+  padding: 1rem;
+  border-left: 6px solid #81C784;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: transform 0.2s;
+}
+
+.safety-list li:hover {
+  transform: scale(1.02);
+}
+
+.safety-list .icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="logo">Virtual<span>Tour</span></a>
+      <a href="/" class="back-btn"><span>←</span> Kembali ke Beranda</a>
+    </div>
+  </nav>
+  
+  <!-- Tour Container -->
+  <div class="tour-container">
+    <div class="container">
+      <div class="tour-header">
+        <h1>Wahana Mini Bumper Car Selecta</h1>
+        <p>Mini Bumper Car adalah wahana permainan mobil listrik berukuran kecil yang dirancang untuk anak-anak dan keluarga. Di wahana ini, pengunjung dapat mengendarai mobil-mobil mini dan saling bertabrakan dalam arena yang aman dan empuk. Permainan ini dirancang untuk menghadirkan keseruan dan tawa sambil tetap menjaga keselamatan. Wahana ini sangat cocok untuk anak-anak dan keluarga yang ingin merasakan sensasi berkendara yang seru dan menyenangkan di dalam area tertutup yang aman.</p>
+      </div>
+      
+      <!-- Panorama Viewer (Placeholder) -->
+<div class="panorama-container">
+  <iframe
+    width="100%"
+    height="640"
+    frameborder="0"
+    allow="xr-spatial-tracking; gyroscope; accelerometer"
+    allowfullscreen
+    scrolling="no"
+    src="https://khalilaah15.github.io/virtualtourppm/index.html#78-83">
+  </iframe>
+</div>
+
+
+      <!-- Tour Information -->
+<section class="safety-tips">
+  <h1>Anjuran Keselamatan Wahana</h1>
+  <ul class="safety-list">
+  <ul class="safety-list">
+    <li><span class="icon">🔗</span> Gunakan sabuk pengaman dengan benar sebelum mobil mulai berjalan.</li>
+    <li><span class="icon">🚫</span> Dilarang berdiri saat mobil bergerak.</li>
+    <li><span class="icon">📢</span> Ikuti arahan petugas sebelum dan selama wahana berjalan.</li>
+    <li><span class="icon">👨‍👧</span> Anak-anak wajib didampingi orang tua.</li>
+    <li><span class="icon">❗</span> Dilarang mengemudi secara agresif.</li>
+  </ul>
+</section>
+
+    </div>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Handle viewpoint navigation
+      const viewpointButtons = document.querySelectorAll('.viewpoint-btn');
+      const panoramaContainer = document.querySelector('.panorama-container');
+      
+      viewpointButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Remove active class from all buttons
+          viewpointButtons.forEach(btn => btn.classList.remove('active'));
+          
+          // Add active class to clicked button
+          button.classList.add('active');
+          
+          // Get viewpoint data
+          const viewpoint = button.dataset.viewpoint;
+          
+          // In a real implementation, this would change the panorama image
+          // For this demo, we'll just update the placeholder text
+          const placeholderText = panoramaContainer.querySelector('.placeholder-text');
+          
+          switch(viewpoint) {
+            case 'main':
+              placeholderText.innerHTML = '<p>Main Falls Viewpoint</p><p>The powerful main cascade, dropping 150 feet into the basin below.</p>';
+              break;
+            case 'upper':
+              placeholderText.innerHTML = '<p>Upper Cascades Viewpoint</p><p>A series of smaller cascades above the main falls, surrounded by lush vegetation.</p>';
+              break;
+            case 'lower':
+              placeholderText.innerHTML = '<p>Lower Pool Viewpoint</p><p>The serene pool at the base of the falls, with mist rising and rainbows forming.</p>';
+              break;
+            case 'forest':
+              placeholderText.innerHTML = '<p>Forest Path Viewpoint</p><p>The scenic hiking trail through ancient forest leading to the falls.</p>';
+              break;
+          }
+        });
+      });
+      
+      // Handle control buttons (for demo purposes)
+      const controlButtons = document.querySelectorAll('.control-btn');
+      
+      controlButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          alert(`In a full implementation, the "${button.textContent}" function would be active.`);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

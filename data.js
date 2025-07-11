@@ -3,7 +3,7 @@ export const tours = [
     id: 1,
     name: "Kolam Renang",
     description: "Kolam renang Selecta merupakan salah satu daya tarik utama di Taman Rekreasi Selecta. Terletak di dataran tinggi dengan udara sejuk khas pegunungan, kolam ini memiliki air yang dingin dan menyegarkan.",
-    image: "/assets/KolamRenang.jpg",
+    image: "/assets/KolamRenang.JPG",
     tourUrl: "/tours/KolamRenang.html"
   },
   {
@@ -80,7 +80,7 @@ export const tours = [
     id: 12,
     name: "Family Coaster",
     description: "Family Coaster adalah salah satu wahana favorit di Taman Rekreasi Selecta. Wahana ini berupa roller coaster ringan yang didesain khusus untuk dinikmati seluruh anggota keluarga, termasuk anak-anak.",
-    image: "/assets/FamilyCoaster",
+    image: "/assets/FamilyCoaster.jpg",
     tourUrl: "/tours/FamilyCoaster.html"
   },
 ];

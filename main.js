@@ -50,24 +50,17 @@ document.addEventListener('DOMContentLoaded', () => {
  * Populates the tours section with data
  */
 function populateTours() {
-  console.log("populateTours dipanggil!");
-  
   const tourCards = document.querySelector('.tour-cards');
-  if (!tourCards) {
-    console.warn("Elemen .tour-cards tidak ditemukan!");
-    return;
-  }
-
+  if (!tourCards) return;
+  
   tours.forEach(tour => {
-    console.log("Menambahkan tour:", tour.name);
-
     const tourCard = document.createElement('div');
     tourCard.className = 'tour-card';
     tourCard.setAttribute('data-animate', 'animate-fade-in');
-
+    
     tourCard.innerHTML = `
       <div class="tour-img">
-        <img src="${tour.image}" alt="${tour.name}" style="width: 300px; border: 2px solid green;">
+        <img src="${tour.image}" alt="${tour.name}">
       </div>
       <div class="tour-content">
         <h3>${tour.name}</h3>
@@ -77,11 +70,9 @@ function populateTours() {
         <a href="${tour.tourUrl}" class="btn-primary">Start Tour</a>
       </div>
     `;
-
+    
     tourCards.appendChild(tourCard);
   });
-}
-
   
   // Add event listeners to tour detail buttons
   const detailButtons = document.querySelectorAll('.tour-details-btn');
@@ -91,7 +82,7 @@ function populateTours() {
       showTourDetails(tours[index]);
     });
   });
-
+}
 
 /**
  * Shows tour details in a modal

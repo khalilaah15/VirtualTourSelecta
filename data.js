@@ -80,7 +80,7 @@ export const tours = [
     id: 12,
     name: "Family Coaster",
     description: "Family Coaster adalah salah satu wahana favorit di Taman Rekreasi Selecta. Wahana ini berupa roller coaster ringan yang didesain khusus untuk dinikmati seluruh anggota keluarga, termasuk anak-anak.",
-    image: "/assets/FamilyCoaster.jpg",
+    image: "/assets/FamilyCoaster",
     tourUrl: "/tours/FamilyCoaster.html"
   },
 ];

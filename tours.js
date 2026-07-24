@@ -1,5 +1,3 @@
-// This file manages virtual tour functionality
-
 /**
  * Creates tour pages dynamically
  * @param {Array} tourData - Array of tour objects

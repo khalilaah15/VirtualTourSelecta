@@ -1,4 +1,3 @@
-import "./style.css";
 import { tours } from "./data.js";
 import {
   initScrollAnimations,
